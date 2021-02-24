@@ -10,7 +10,13 @@ use Illuminate\Support\Facades\DB;
 class DepartmentController extends Controller
 {
     public function index(){
-        return view('admin.department.index');
+        //eloquent
+       // $departments = Department::all();
+       //query builder
+        //$departments=DB::table('departments')->get();
+        //$departments = Department::paginate(3);
+        $departments = DB::table('departments')->paginate(5);
+        return view('admin.department.index',compact('departments'));
     }
     public function store(Request $request){
         // dd($request->department_name);

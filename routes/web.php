@@ -23,6 +23,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard',compact('users'));
 })->name('dashboard');
 
-Route::get('/department/all',[DepartmentController::class,'index'])->name('department');
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::get('/department/all',[DepartmentController::class,'index'])->name('department');
+    Route::post('department/add',[DepartmentController::class,'store'])->name('addDepartment');
+});
 
-Route::post('department/add',[DepartmentController::class,'store'])->name('addDepartment');
+
