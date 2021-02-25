@@ -14,8 +14,12 @@ class DepartmentController extends Controller
        // $departments = Department::all();
        //query builder
         //$departments=DB::table('departments')->get();
-        //$departments = Department::paginate(3);
-        $departments = DB::table('departments')->paginate(5);
+        //$departments = Department::paginate(5);
+        //$departments = DB::table('departments')->paginate(5);
+        $departments=DB::table('departments')
+        ->join('users','departments.user_id','users.id')
+        ->select('departments.*','users.name')
+        ->paginate(5);
         return view('admin.department.index',compact('departments'));
     }
     public function store(Request $request){
@@ -42,6 +46,27 @@ class DepartmentController extends Controller
         $data["user_id"]= Auth::user()->id;
         DB::table('departments')->insert($data);
         return redirect()->back()->with('success',"บันทึกข้อมูลเรียบร้อยแล้ว");
+
+    }
+    public function edit($id){
+       $department= Department::find($id);
+       return view('admin.department.edit',compact('department'));
+    }
+    public function update(Request $request , $id){
+        $request->validate(
+            [
+                'department_name'=>'required|unique:departments|max:255'
+            ],
+            [
+                'department_name.required'=>"กรุณาป้อนชื่อแผนก",
+                'department_name.max'=>"ห้ามป้อนเกิน 255 ตัว",
+                'department_name.unique'=>"มีข้อมูลชื่อแผนกนี้ในฐานข้อมูลแล้ว"
+            ]
+        );
+        Department::find($id)->update(['department_name'=>$request->department_name,
+        'user_id'=>Auth::user()->id
+        ]);
+        return redirect()->route('department')->with('success','อัปเดตข้อมูลสำเร็จ');
 
     }
 }

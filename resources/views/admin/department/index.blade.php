@@ -22,8 +22,9 @@
                                 <tr>
                                 <th scope="col">ลำดับ</th>
                                 <th scope="col">ชื่อแผนก</th>
-                                <th scope="col">UserID</th>
+                                <th scope="col">User</th>
                                 <th scope="col">Created_time</th>
+                                <th scope="col">Edit</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -32,7 +33,7 @@
                                 <tr>
                                 <th>{{$departments->firstItem()+$loop->index}}</th>
                                 <td>{{$row->department_name}}</td>
-                                <td>{{$row->user_id}}</td>
+                                <td>{{$row->name}}</td>
                                 
                                 <td>
                                     @if($row->created_at == NULL)
@@ -40,6 +41,9 @@
                                     @else
                                     {{Carbon\Carbon::parse($row->created_at)->diffForHumans()}}
                                     @endif
+                                </td>
+                                <td>
+                                <a href="{{url('/department/edit/'.$row->id)}}" class="btn btn-primary">แก้ไข</a>
                                 </td>
                                 </tr>
                                 @endforeach
