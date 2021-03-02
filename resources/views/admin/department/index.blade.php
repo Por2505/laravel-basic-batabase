@@ -25,6 +25,7 @@
                                 <th scope="col">User</th>
                                 <th scope="col">Created_time</th>
                                 <th scope="col">Edit</th>
+                                <th scope="col">Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -33,7 +34,7 @@
                                 <tr>
                                 <th>{{$departments->firstItem()+$loop->index}}</th>
                                 <td>{{$row->department_name}}</td>
-                                <td>{{$row->name}}</td>
+                                <td>{{$row->user->name}}</td>
                                 
                                 <td>
                                     @if($row->created_at == NULL)
@@ -44,6 +45,9 @@
                                 </td>
                                 <td>
                                 <a href="{{url('/department/edit/'.$row->id)}}" class="btn btn-primary">แก้ไข</a>
+                                </td>
+                                <td>
+                                <a href="{{url('/department/softdelete/'.$row->id)}}" class="btn btn-danger">ลบข้อมูล</a>
                                 </td>
                                 </tr>
                                 @endforeach

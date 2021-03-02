@@ -28,6 +28,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post('department/add',[DepartmentController::class,'store'])->name('addDepartment');
     Route::get('/department/edit/{id}',[DepartmentController::class,'edit']);
     Route::post('/department/update/{id}',[DepartmentController::class,'update']);
+    Route::get('/department/softdelete/{id}',[DepartmentController::class,'softdelete']);
 });
 
 

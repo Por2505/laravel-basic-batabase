@@ -10,16 +10,16 @@ use Illuminate\Support\Facades\DB;
 class DepartmentController extends Controller
 {
     public function index(){
-        //eloquent
-       // $departments = Department::all();
-       //query builder
+    //eloquent
+        // $departments = Department::all();
+    //query builder
         //$departments=DB::table('departments')->get();
-        //$departments = Department::paginate(5);
-        //$departments = DB::table('departments')->paginate(5);
-        $departments=DB::table('departments')
-        ->join('users','departments.user_id','users.id')
-        ->select('departments.*','users.name')
-        ->paginate(5);
+        $departments = Department::paginate(5);
+       
+        // $departments=DB::table('departments')
+        // ->join('users','departments.user_id','users.id')
+        // ->select('departments.*','users.name')
+        //->paginate(5);
         return view('admin.department.index',compact('departments'));
     }
     public function store(Request $request){
@@ -68,5 +68,9 @@ class DepartmentController extends Controller
         ]);
         return redirect()->route('department')->with('success','อัปเดตข้อมูลสำเร็จ');
 
+    }
+    public function softdelete($id){
+        $delete = Department::find($id)->delete();
+        return redirect()->route('department')->with('success','ลบข้อมูลเรียบร้อบแล้ว');
     }
 }
