@@ -18,6 +18,9 @@
                     <x-jet-nav-link href="{{ route('department') }}">
                         Department
                     </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('services') }}">
+                        Service
+                    </x-jet-nav-link>
                 </div>
             </div>
 

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\ServiceController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,7 +29,18 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post('department/add',[DepartmentController::class,'store'])->name('addDepartment');
     Route::get('/department/edit/{id}',[DepartmentController::class,'edit']);
     Route::post('/department/update/{id}',[DepartmentController::class,'update']);
+
     Route::get('/department/softdelete/{id}',[DepartmentController::class,'softdelete']);
+    Route::get('/department/delete/{id}',[DepartmentController::class,'delete']);
+    Route::get('/department/restore/{id}',[DepartmentController::class,'restore']);
+    //service
+    Route::get('/service/all',[ServiceController::class,'index'])->name('services');
+    Route::post('service/add',[ServiceController::class,'store'])->name('addService');
+    Route::get('/service/edit/{id}',[ServiceController::class,'edit']);
+    Route::post('/service/update/{id}',[ServiceController::class,'update']);
+    
+
+
 });
 
 
